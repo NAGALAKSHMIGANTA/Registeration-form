@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+        }
+
+        .form-container h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .form-group .error {
+            color: #ff0000;
+            font-size: 12px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Student Registration</h1>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+                <div class="error" id="nameError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+                <div class="error" id="phoneError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+                <div class="error" id="dobError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="course">Course</label>
+                <select id="course" name="course" required>
+                    <option value="">Select a course</option>
+                    <option value="computer_science">Computer Science</option>
+                    <option value="business">Business</option>
+                    <option value="arts">Arts</option>
+                    <option value="engineering">Engineering</option>
+                </select>
+                <div class="error" id="courseError"></div>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(error => error.textContent = '');
+
+            let isValid = true;
+
+            // Validate name
+            const name = document.getElementById('name').value.trim();
+            if (name === '') {
+                document.getElementById('nameError').textContent = 'Full Name is required.';
+                isValid = false;
+            }
+
+            // Validate email
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            // Validate phone
+            const phone = document.getElementById('phone').value.trim();
+            if (!/^[0-9]{10}$/.test(phone)) {
+                document.getElementById('phoneError').textContent = 'Phone Number must be 10 digits.';
+                isValid = false;
+            }
+
+            // Validate date of birth
+            const dob = document.getElementById('dob').value;
+            if (dob === '') {
+                document.getElementById('dobError').textContent = 'Date of Birth is required.';
+                isValid = false;
+            }
+
+            // Validate course
+            const course = document.getElementById('course').value;
+            if (course === '') {
+                document.getElementById('courseError').textContent = 'Please select a course.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Registration Successful!');
+                // Here, you can add code to submit the form data to a server
+            }
+        });
+    </script>
+</body>
+</html>
